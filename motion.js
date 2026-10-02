@@ -76,3 +76,77 @@
     event.target.closest("[data-reveal]")?.classList.add("is-visible"),
   );
 })();
+
+// Efeitos de luz: cursor, avaliações acendendo e botões magnéticos.
+(() => {
+  if (document.documentElement.dataset.motion !== "enabled") return;
+  const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  // Avaliações: cada palavra acende conforme o trecho sobe na tela.
+  const quotes = [...document.querySelectorAll(".quotes blockquote p")].map((p) => {
+    p.innerHTML = p.textContent
+      .trim()
+      .split(/\s+/)
+      .map((word) => `<span class="w">${word}</span>`)
+      .join(" ");
+    return { p, words: [...p.querySelectorAll(".w")] };
+  });
+  let pending = false;
+  function light() {
+    pending = false;
+    for (const { p, words } of quotes) {
+      const rect = p.getBoundingClientRect();
+      const progress = Math.min(1, Math.max(0, (innerHeight * 0.9 - rect.top) / (innerHeight * 0.45)));
+      const lit = Math.round(progress * words.length);
+      words.forEach((w, i) => w.classList.toggle("lit", i < lit));
+    }
+  }
+  addEventListener("scroll", () => {
+    if (!pending) {
+      pending = true;
+      requestAnimationFrame(light);
+    }
+  }, { passive: true });
+  light();
+
+  if (!fine) return;
+
+  // Luz no cursor, com atraso suave.
+  const lamp = document.createElement("div");
+  lamp.className = "cursor-light";
+  lamp.setAttribute("aria-hidden", "true");
+  document.body.append(lamp);
+  const target = { x: innerWidth / 2, y: innerHeight / 3 };
+  const pos = { ...target };
+  let moving = false;
+  function follow() {
+    pos.x += (target.x - pos.x) * 0.12;
+    pos.y += (target.y - pos.y) * 0.12;
+    lamp.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
+    moving = Math.abs(target.x - pos.x) + Math.abs(target.y - pos.y) > 0.5;
+    if (moving) requestAnimationFrame(follow);
+  }
+  addEventListener("pointermove", (event) => {
+    target.x = event.clientX;
+    target.y = event.clientY;
+    lamp.classList.add("on");
+    if (!moving) {
+      moving = true;
+      requestAnimationFrame(follow);
+    }
+  }, { passive: true });
+  document.addEventListener("pointerleave", () => lamp.classList.remove("on"));
+
+  // Botões magnéticos: puxam até 10px na direção do mouse.
+  document.querySelectorAll(".button, .top-cta").forEach((button) => {
+    button.addEventListener("pointermove", (event) => {
+      const box = button.getBoundingClientRect();
+      const dx = (event.clientX - (box.left + box.width / 2)) / (box.width / 2);
+      const dy = (event.clientY - (box.top + box.height / 2)) / (box.height / 2);
+      button.style.transform = `translate(${dx * 10}px, ${dy * 6}px)`;
+    });
+    button.addEventListener("pointerleave", () => {
+      button.style.transform = "";
+    });
+  });
+})();

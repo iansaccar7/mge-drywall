@@ -15,11 +15,16 @@
       content="Linhas de LED, luz embutida e acabamento no teto. Wagner e a equipe unem forro de drywall e iluminação, com a organização que os clientes elogiam."
     />
     <meta property="og:type" content="website" />
-    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="style.css" />
-    <script src="script.js" defer></script>
-    <link rel="stylesheet" href="motion.css" />
-    <script src="motion.js" defer></script>
+    <link rel="icon" href="favicon.svg?v=2" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css?v=2" />
+    <script src="script.js?v=2" defer></script>
+    <link rel="stylesheet" href="motion.css?v=2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="design.css?v=5" />
+    <script src="plan.js?v=3" defer></script>
+    <script src="motion.js?v=3" defer></script>
   </head>
   <body class="mge">
     <a class="skip" href="#conteudo">Pular para o conteúdo</a>
@@ -47,31 +52,10 @@
     <main id="conteudo">
       <section class="hero" id="inicio">
         <div class="wrap">
-          <div class="studio-cover">
-            <div class="studio-side">
-              <p class="location">Vila Nhocuné · Zona Leste de São Paulo</p>
-              <p class="studio-services">Forro de drywall.<br />Gesso.<br />Iluminação embutida.</p>
-              <div class="proof">
-                <strong>4,9</strong><span>No Google<br />121 avaliações</span>
-              </div>
-              <p class="micro-note">Wagner e equipe.<br />Vila Nhocuné, São Paulo.</p>
-            </div>
-            <figure class="studio-photo">
-              <div class="photo">
-                <span class="photo-label"
-                  >[FOTO: forro com LED — obra real MGE]<small
-                    >Foto real a inserir · panorâmica</small
-                  ></span
-                >
-              </div>
-              <figcaption>
-                <span>Linhas de luz e acabamento no teto</span><span>Foto real a inserir</span>
-              </figcaption>
-            </figure>
-          </div>
-          <div class="studio-heading">
-            <h1>A luz muda<br />o ambiente.</h1>
-            <div>
+          <div class="hero-split">
+            <div class="hero-copy">
+              <span class="eyebrow">Forro de drywall · LED embutido</span>
+              <h1>A luz muda<br /><em>o ambiente.</em></h1>
               <p class="intro">
                 Forro de drywall e LED embutido. Obra organizada e limpa, com o acabamento que os
                 clientes elogiam.
@@ -85,7 +69,47 @@
                     <path d="M5 12h14m-5-5 5 5-5 5" /></svg
                 ></a>
               </div>
+              <dl class="hero-facts">
+                <div><dt>No Google</dt><dd>4,9 <small>121 avaliações</small></dd></div>
+                <div><dt>Onde</dt><dd>Vila Nhocuné <small>Zona Leste de São Paulo</small></dd></div>
+                <div><dt>Quem faz</dt><dd>Wagner <small>e equipe</small></dd></div>
+              </dl>
             </div>
+            <figure class="bezel plan-card">
+              <div class="bezel-core">
+                <div class="plan-head">
+                  <span class="eyebrow on-dark">Prancheta de forro</span>
+                  <span class="plan-meter" data-plan-meter aria-live="polite">0,0 m de luz</span>
+                </div>
+                <div class="plan" data-plan>
+                  <svg class="plan-svg" viewBox="0 0 500 400" role="img" aria-label="Planta de um forro de 5 por 4 metros. Arraste para desenhar linhas de luz.">
+                    <defs>
+                      <pattern id="grade" width="50" height="50" patternUnits="userSpaceOnUse">
+                        <path d="M50 0H0V50" class="plan-grid" />
+                      </pattern>
+                      <filter id="brilho" filterUnits="userSpaceOnUse" x="0" y="0" width="500" height="400">
+                        <feGaussianBlur stdDeviation="7" />
+                      </filter>
+                    </defs>
+                    <rect width="500" height="400" fill="url(#grade)" />
+                    <rect class="plan-room" x="10" y="10" width="480" height="380" />
+                    <rect class="plan-sanca" x="30" y="30" width="440" height="340" />
+                    <g class="plan-lines"></g>
+                    <line class="plan-ghost" x1="0" y1="0" x2="0" y2="0" />
+                    <text class="plan-dim" x="250" y="398">5 m</text>
+                    <text class="plan-dim" x="8" y="200" transform="rotate(-90 8 200)">4 m</text>
+                  </svg>
+                </div>
+                <div class="plan-foot">
+                  <label class="plan-switch"><input type="checkbox" data-plan-sanca /><span>Sanca no contorno</span></label>
+                  <button type="button" class="plan-clear" data-plan-clear>Limpar</button>
+                </div>
+                <a class="button plan-send" data-plan-send href="https://wa.me/5511951043341" target="_blank" rel="noopener noreferrer"
+                  >Pedir orçamento deste desenho<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" /></svg
+                ></a>
+                <p class="plan-note">Arraste no teto para desenhar. Ilustração de 5 × 4 m, grade de 50 cm.</p>
+              </div>
+            </figure>
           </div>
         </div>
       </section>
@@ -96,6 +120,16 @@
             <p>Espaços reservados para as fotos reais e os quadros do vídeo da MGE.</p>
           </div>
           <div class="gallery-grid">
+            <figure>
+              <div class="photo">
+                <span class="photo-label"
+                  >[FOTO: forro com LED — obra real MGE]<small
+                    >Foto real a inserir · panorâmica</small
+                  ></span
+                >
+              </div>
+              <figcaption>Linhas de luz e acabamento no teto</figcaption>
+            </figure>
             <figure>
               <div class="photo">
                 <span class="photo-label"
